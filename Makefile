@@ -7,7 +7,7 @@ SHADER_SRC_DIR := glsl
 SHADER_OBJ_DIR := ../bin/spv
 
 CXXFLAGS := -Wall -Wno-unknown-attributes -g -std=c++14 -I../skia/include/core -I../skia/include/config -I../skia/include/gpu -I../skia/include/utils
-LIBS := `pkg-config --static --libs gl glfw3 libwebpdemux libwebpmux freetype2 fontconfig luajit` -lskia -lvulkan 
+LIBS := `pkg-config --static --libs gl glfw3 libwebpdemux libwebpmux freetype2 fontconfig luajit` -lskia
 LDFLAGS := -Wl,-rpath=lib,-L. $(LIBS)
 
 PRG_NAME := mt

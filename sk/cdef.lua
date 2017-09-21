@@ -42,21 +42,21 @@ paint* paint_new();
 void paint_delete(paint* p);
 
 typedef enum {
-    fill,
-    stroke,
-    stroke_and_fill,
+  fill,
+  stroke,
+  stroke_and_fill,
 } style;
 
 typedef enum {
-    miter_join,
-    round_join,
-    bevel_join,
+  miter_join,
+  round_join,
+  bevel_join,
 } join;
 
 typedef enum {
-    butt_cap,
-    round_cap,
-    square_cap,
+  butt_cap,
+  round_cap,
+  square_cap,
 } cap;
 
 void set_color(paint* p, rgba color);

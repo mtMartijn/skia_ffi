@@ -8,7 +8,7 @@ color._type = "color"
 ffi.metatype("rgba", color)
 
 function color.new(r, g, b, a)
-    return ffi.new("rgba", r, g, b, a or 1)
+  return ffi.new("rgba", r, g, b, a or 1)
 end
 
 return color
