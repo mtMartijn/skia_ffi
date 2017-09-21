@@ -1,0 +1,8 @@
+# Ignore:
+mt
+src/deps
+bin/spv
+*.o
+*.d
+*.spv
+*.vktrace
