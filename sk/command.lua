@@ -4,6 +4,8 @@ local input = require("sk.input")
 
 local insert, type, assert = table.insert, type, assert
 
+local master_queue = {}
+
 local shader_list = {
   ["fill"] = function() return paint.new():style("fill") end,
   ["stroke"] = function() return paint.new():style("stroke") end,
@@ -257,6 +259,12 @@ function command.submit(self)
     self._ops[i]:call()
   end
   sk.reset_matrix()
+end
+
+function command.update()
+  for i=1, #master_queue do
+    master_queue[i]:submit()
+  end
 end
 
 return command
