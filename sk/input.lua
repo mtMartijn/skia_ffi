@@ -10,7 +10,7 @@ typedef struct {
 } mouse_info;
 ]]
 
-local info = {
+local state = {
   prev = ffi.new("mouse_info"),
   curr = ffi.new("mouse_info"),
   clicked_pos = P(0, 0),
@@ -25,41 +25,45 @@ local function inside_rect(pos, center, size)
 end
 
 local function drag_delta()
-  return info.released_pos - info.clicked_pos
+  return state.released_pos - state.clicked_pos
 end
 
 local function mouse_clicked()
-  return not info.prev.pressed and info.curr.pressed
+  return not state.prev.pressed and state.curr.pressed
 end
 
 local function mouse_released()
-  return info.prev.pressed and not info.curr.pressed
+  return state.prev.pressed and not state.curr.pressed
 end
 
 local function mouse_down()
-  return info.curr.pressed
+  return state.curr.pressed
 end
 
 local function mouse_pos()
-  return info.curr.pos
+  return state.curr.pos
 end
 
 local function mouse_pos_delta()
-  return info.curr.pos - info.prev.pos
+  return state.curr.pos - state.prev.pos
+end
+
+local function mouse_clicked_pos()
+  return state.clicked_pos
 end
 
 local function clicked_inside(center, size)
-  return inside_rect(info.clicked_pos, center, size)
+  return inside_rect(state.clicked_pos, center, size)
 end
 
 local function update(mouse)
-  info.prev = info.curr
-  info.curr = mouse
+  state.prev = state.curr
+  state.curr = mouse
 
   if mouse_clicked() then
-    info.clicked_pos = mouse.pos
+    state.clicked_pos = mouse.pos
   elseif mouse_released() then
-    info.released_pos = mouse.pos
+    state.released_pos = mouse.pos
   end
 end
 
@@ -69,4 +73,6 @@ return {
   mouse_down = mouse_down,
   mouse_pos = mouse_pos,
   mouse_pos_delta = mouse_pos_delta,
+  mouse_clicked_pos = mouse_clicked_pos,
 }
+

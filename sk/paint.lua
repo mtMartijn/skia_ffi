@@ -47,6 +47,10 @@ function paint.stroke_width(self, w)
   return self
 end
 
+function paint.delete(self)
+  sk.paint_delete(self.obj)
+end
+
 -- This doesn't work in lua 5.1, need to recompile luaJIT so that it's 5.2 compatible
 function paint.__gc(self)
   sk.paint_delete(self.obj)
