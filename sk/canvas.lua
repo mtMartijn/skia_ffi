@@ -33,7 +33,7 @@ end)
 -- Hexagon:
 command.record("hexagon", function()
   local c = command.new()
-  c:shader("fill"):color(0.2, 0.2, 0.2)
+  c:shader("fill"):color(0.5, 0.5, 0.5)
 
   local sin, cos, pi = math.sin, math.cos, math.pi
   local function hex(i)
@@ -91,7 +91,7 @@ function canvas.setup()
   queue = {
     command.create("test"),
     command.create("bezier"),
-    command.create("node"),
+    -- command.create("node"),
     command.create("hexagon"),
   }
 end

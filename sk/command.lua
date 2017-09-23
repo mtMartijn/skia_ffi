@@ -1,16 +1,54 @@
 local sk = require("sk.cdef")
-local paint = require("sk.paint")
 local input = require("sk.input")
+local color = require("sk.color").new
 
 local insert, type, assert = table.insert, type, assert
 
 local master_queue = {}
 
 local shader_list = {
-  ["fill"] = function() return paint.new():style("fill") end,
-  ["stroke"] = function() return paint.new():style("stroke") end,
-  ["stroke_and_fill"] = function() return paint.new():style("stroke_and_fill") end,
+  ["color"] = function(self, r, g, b, a) 
+    if type(r) == "number" then
+      sk.set_color(self.obj, color(r, g, b, a))
+    else
+      sk.set_color(self.obj, r)
+    end
+    return self
+  end,
+  ["alpha"] = function(self, a) 
+    sk.set_alpha(self.obj, a)
+    return self
+  end,
+  ["style"] = function(self, s)
+    sk.set_style(self.obj, s)
+    return self
+  end,
+  ["fill"] = function(self) 
+    sk.set_style(self.obj, "fill")
+    return self
+  end,
+  ["stroke"] = function(self) 
+    sk.set_style(self.obj, "stroke")
+    return self
+  end,
+  ["stroke_and_fill"] = function(self) 
+    sk.set_style(self.obj, "stroke_and_fill")
+    return self
+  end,
+  ["stroke_join"] = function(self, j)
+    sk.set_stroke_join(self.obj, j)
+    return self
+  end,
+  ["stroke_cap"] = function(self, c)
+    sk.set_stroke_cap(self.obj, c)
+    return self
+  end,
+  ["stroke_width"] = function(self, w)
+    sk.set_stroke_width(self.obj, w)
+    return self
+  end,
 }
+shader_list.__index = shader_list
 
 local draw_list = {
   ["point"] = {
@@ -170,9 +208,13 @@ end
 
 
 function command.shader(self, tp)
-  local sh = shader_list[tp]()
+  local sh = {
+    obj = sk.paint_new()
+  }
+  setmetatable(sh, shader_list)
   insert(self._shaders, sh)
-  return sh
+
+  return sh[tp](sh)
 end
 
 local function new_path(cmd)
