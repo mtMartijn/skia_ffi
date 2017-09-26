@@ -50,8 +50,11 @@ int main(int argc, char* argv[]) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_SRGB_CAPABLE, GL_TRUE);
 
-  const int width = 1920;
-  const int height = 1080;
+  /* const int width = 1920; */
+  /* const int height = 1080; */
+
+  const int width = 1400;
+  const int height = 900;
 
   window = glfwCreateWindow(width, height, "MT", NULL, NULL);
   if (!window) {
