@@ -2,7 +2,8 @@ local sk = require("sk.cdef")
 local input = require("sk.input")
 local color = require("sk.color").new
 
-local insert, type, assert = table.insert, type, assert
+local insert, type, assert, tostring = table.insert, type, assert, tostring
+local random = math.random
 
 local master_queue = {}
 
@@ -152,11 +153,32 @@ local callback_list = {
   ["mouse_pos"] = input.mouse_pos,
 }
 
+-- Utils:
 local function key_unique(tbl, key)
   for k, v in pairs(tbl) do
     if k == key then return false end
   end
   return true
+end
+
+local function map_insert(self, item)
+  assert(type(item) == "table")
+
+  local id = tostring(random(999999))
+  while not key_unique(self, id) do
+    id = tostring(random(999999))
+  end
+  item._id = id
+
+  insert(self, item)
+  self[id] = item
+  return id
+end
+
+local function map()
+  return {
+    insert = map_insert,
+  }
 end
 
 local command = {}
