@@ -65,6 +65,9 @@ extern "C" {
     square_cap,
   } cap;
 
+  /* paint* new_stroke(rgba color, float w, cap c, join j); */
+  /* paint* new_fill(rgba color); */
+
   void set_color(paint* p, rgba color);
   void set_alpha(paint* p, float a);
   void set_style(paint* p, style s);

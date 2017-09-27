@@ -67,4 +67,14 @@ void set_stroke_cap(paint * p, cap c);
 void set_stroke_width(paint* p, float w);
 ]]
 
-return ffi.C
+local C = ffi.C
+
+-- Need to compile LuaJIT with 5.2 compatibility
+
+local paint_mt = { __gc = function(self) C.paint_delete(self) end, }
+ffi.metatype("paint", paint_mt)
+
+local path_mt = { __gc = function(self) C.path_delete(self) end, }
+ffi.metatype("path", path_mt)
+
+return C

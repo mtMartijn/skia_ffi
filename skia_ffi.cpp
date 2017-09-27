@@ -164,6 +164,33 @@ void paint_delete(paint* p) {
   delete p;
 }
 
+/* paint* new_stroke(rgba color, float w, cap c, join j) { */
+/*   auto p = new paint(); */
+/*   p->obj.setAntiAlias(true); */
+/*   p->obj.setStyle(SkPaint::kStroke_Style); */
+/*   p->obj.setColor(SK_COL(color)); */
+/*   p->obj.setStrokeWidth(w); */
+/*   switch(c) { */
+/*     case butt_cap: p->obj.setStrokeCap(SkPaint::kButt_Cap); break; */
+/*     case round_cap: p->obj.setStrokeCap(SkPaint::kRound_Cap); break; */
+/*     case square_cap: p->obj.setStrokeCap(SkPaint::kSquare_Cap); break; */
+/*   } */
+/*   switch(j) { */
+/*     case miter_join: p->obj.setStrokeJoin(SkPaint::kMiter_Join); break; */
+/*     case round_join: p->obj.setStrokeJoin(SkPaint::kRound_Join); break; */
+/*     case bevel_join: p->obj.setStrokeJoin(SkPaint::kBevel_Join); break; */
+/*   } */
+/*   return p; */
+/* } */
+
+/* paint* new_fill(rgba color) { */
+/*   auto p = new paint(); */
+/*   p->obj.setAntiAlias(true); */
+/*   p->obj.setStyle(SkPaint::kFill_Style); */
+/*   p->obj.setColor(SK_COL(color)); */
+/*   return p; */
+/* } */
+
 void set_color(paint* p, rgba color) {
   p->obj.setColor(SK_COL(color));
 }
