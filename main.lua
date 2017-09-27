@@ -27,14 +27,12 @@ function setup(w)
   state.window = ffi.cast("GLFWwindow*", w)
 
   local q = canvas.queue()
-  q:draw("grid", { P(0, 0), P(1400, 900), 50 })
-  q:style("fill", { COL(0.5, 0.5, 0.5) })
+  -- q:style("stroke", { COL(0.8, 0.8, 0.8), 2 })
+  -- q:draw("node_link2", { P(800, 500), P(1000, 400), 75, 10 })
   -- q:draw("triangle", { P(400, 400), 20, 0 })
   -- q:transform("translate", { P(500, 500) })
-  q:draw("hex_grid", { 1, 1, 1, 75, 5 })
-
-  q:style("text", { COL(1, 1, 1), 18 })
-  q:shape("text", { "Something", P(500, 400) })
+  -- q:draw("hex_grid", { 1, 1, 1, 75, 5 })
+  q:draw("bezier_editor", { P(100, 100), 200, P(120, 25), P(-100, 5)})
 
 end
 

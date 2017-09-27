@@ -12,23 +12,6 @@ local master_queue = {}
 local canvas = {}
 canvas.__index = canvas
 
--- Need to figure out where to put canvas.queue(), i.e. have one large ops array or have many smaller ones
--- Perhaps only do it once, and have every draw/shape/translate operation append an op to a master ops array
--- But how would one delete a composite operation?
---
--- One:
---  -would make it easier to implement hierarchical draw operations
---
--- Many:
---  -would make it easier to delete a draw-group, and control the scope of its arguments
---
--- Solution: make template functions (see canvas.record) and use these to draw hierarchical objects and 
--- only use queue when you want to instantiate them.
---
--- Creating a callback mechanism will be tricky for 'paint/path' because its arguments are set only once at creation
--- 
--- Update: I feel like I'm overthinking it, maybe a callback mechanism is unnecessary. Will first try without
-
 function canvas.queue()
   local b = {
     args = {},
@@ -195,7 +178,7 @@ local shape_list = {
 }
 
 function canvas.shape(self, shape, args)
-  if #self.styles == 0 then self:style("stroke", {}) end
+  if #self.styles == 0 then self:style("stroke", { color(1, 1, 1), 2 }) end
 
   if shape == "path" then return self:path() end
 
@@ -287,7 +270,7 @@ function canvas.update(self)
 end
 
 function canvas.flush()
-  sk.clear(color(0.12, 0.12, 0.12))
+  sk.clear(color(0.15, 0.15, 0.15))
   for i=1, #master_queue do
     master_queue[i]:update()
   end
