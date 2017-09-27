@@ -18,12 +18,15 @@ void draw_quad(point a, point b, float radius, paint* pnt);
 void draw_circle(point center, float radius, paint* pnt);
 void draw_oval(point center, point radius, paint* pnt);
 void draw_path(path* s, paint* pnt);
+void draw_text(const char* text, size_t length, point start, paint* pnt);
 
 void translate(point dir);
 void rotate(float angle);
 void scale(point size);
 void skew(float sx, float sy);
 void reset_matrix();
+void save_matrix();
+void restore_matrix();
 
 // ======= SkPath ======= //
 path* path_new();
@@ -65,6 +68,7 @@ void set_style(paint* p, style s);
 void set_stroke_join(paint* p, join j);
 void set_stroke_cap(paint * p, cap c);
 void set_stroke_width(paint* p, float w);
+void set_text_size(paint* p, float h);
 ]]
 
 local C = ffi.C

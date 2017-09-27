@@ -1,5 +1,4 @@
 local sk = require("sk.cdef")
-local input = require("sk.input")
 local color = require("sk.color").new
 local P = require("sk.point")
 local utils = require("utils.table")
@@ -88,6 +87,14 @@ local style_list = {
     call = function(self)
       sk.set_style(self.obj, "fill")
       sk.set_color(self.obj, self.args.color)
+    end,
+  },
+  ["text"] = {
+    args = { "color", "size" },
+    call = function(self)
+      sk.set_style(self.obj, "fill")
+      sk.set_color(self.obj, self.args.color)
+      sk.set_text_size(self.obj, self.args.size)
     end,
   },
 }
@@ -181,6 +188,10 @@ local shape_list = {
     args = { "center", "radius" },
     call = function(self) sk.draw_oval(self.args.center, self.args.radius, self.style.obj) end,
   },
+  ["text"] = {
+    args = { "text", "position" },
+    call = function(self) sk.draw_text(self.args.text, #self.args.text, self.args.position, self.style.obj) end,
+  },
 }
 
 function canvas.shape(self, shape, args)
@@ -225,6 +236,14 @@ local transform_list = {
     args = {},
     call = function(self) sk.reset_matrix() end,
   },
+  ["save"] = {
+    args = {},
+    call = function(self) sk.save_matrix() end,
+  },
+  ["restore"] = {
+    args = {},
+    call = function(self) sk.restore_matrix() end,
+  },
 }
 
 function canvas.transform(self, op, args)
@@ -260,14 +279,15 @@ function canvas.draw(self, name, args)
 end
 
 function canvas.update(self)
+  sk.save_matrix()
   for i=1, #self.ops do
     self.ops[i]:call()
   end
-  sk.reset_matrix()
+  sk.restore_matrix()
 end
 
 function canvas.flush()
-  sk.clear(color(0.15, 0.15, 0.15))
+  sk.clear(color(0.12, 0.12, 0.12))
   for i=1, #master_queue do
     master_queue[i]:update()
   end

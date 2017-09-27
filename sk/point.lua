@@ -61,6 +61,10 @@ function point.Y(self)
   return point.new(0, self.y)
 end
 
+function point.decompose(self)
+  return self.x, self.y
+end
+
 function point.Ymirror(self)
   return point.new(self.x, -self.y)
 end

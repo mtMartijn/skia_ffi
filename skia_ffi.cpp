@@ -84,6 +84,10 @@ void draw_path(path* s, paint* pnt) {
   canvas->drawPath(s->obj, pnt->obj);
 }
 
+void draw_text(const char* text, size_t length, point start, paint* pnt) {
+  canvas->drawText(text, length, start.x, start.y, pnt->obj);
+}
+
 void translate(point dir) {
   canvas->translate(dir.x, dir.y);
 }
@@ -102,6 +106,14 @@ void skew(float sx, float sy) {
 
 void reset_matrix() { 
   canvas->resetMatrix();
+}
+
+void save_matrix() {
+  canvas->save();
+}
+
+void restore_matrix() {
+  canvas->restore();
 }
 
 // ======= SkPath ======= //
@@ -225,5 +237,9 @@ void set_stroke_cap(paint* p, cap c) {
 
 void set_stroke_width(paint* p, float w) { 
   p->obj.setStrokeWidth(w);
+}
+
+void set_text_size(paint* p, float h) {
+  p->obj.setTextSize(h);
 }
 
